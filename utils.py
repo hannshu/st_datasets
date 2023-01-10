@@ -5,6 +5,8 @@ from scipy import sparse
 import matplotlib.pyplot as plt
 import os
 import time
+from sklearn.neighbors import NearestNeighbors
+import seaborn as sns
 
 
 def get_data(dataset_func=None, top_genes=3000, **args):
@@ -60,3 +62,77 @@ def build_adata(spot_scale, root_path=None, name='dataset'):
     adata.obs['cluster'] = true
 
     return adata
+
+
+def build_graph(adata, radius=None, knears=None, format='adj', save_img=None, **args):
+    assert (radius and not knears) or (not radius and knears), \
+        ">>> ERROR: You can only choose one method."
+    assert format in ['adj', 'pyg'], \
+        ">>> ERROR: This return data type is not provided now."
+
+    if ('highly_variable' in adata.var):
+        adata = adata[:, adata.var['highly_variable']]
+
+    coor = pd.DataFrame(adata.obsm['spatial'])
+    coor.index = adata.obs.index
+    coor.columns = ['row', 'col']
+    if (radius):
+        nbrs = NearestNeighbors(radius=radius).fit(coor)
+        _, indices = nbrs.radius_neighbors(coor, return_distance=True)
+    else:
+        nbrs = NearestNeighbors(n_neighbors=knears+1).fit(coor)
+        _, indices = nbrs.kneighbors(coor)
+
+    adj = np.zeros((adata.X.shape[0], adata.X.shape[0]), dtype='float')
+    for i in range(len(indices)):
+        for j in range(len(indices[i])):
+            adj[i][indices[i][j]] = 1.
+
+    if ('pyg' == format):
+        import torch
+        from torch_geometric.data import Data
+
+        data = Data(edge_index=torch.LongTensor(np.nonzero(adj)), 
+                    x=torch.FloatTensor(adata.X.todense()))
+
+        if (save_img):
+            visualize_graph(adata, data.edge_index.T, save_img, **args)
+
+        return data
+    else:
+        if (save_img):
+            visualize_graph(adata, np.array(np.nonzero(adj)).T, save_img, **args)
+
+        return adj
+
+
+def visualize_graph(adata: sc.AnnData, edges, save_path, **args):
+    import squidpy as sq
+    import torch
+    from torch_geometric import utils
+
+    edge_list_without_ring = np.array([[edge[0], edge[1]] for edge in edges if (edge[0] != edge[1])]).T
+    adata.obsp['visualize'] = utils.to_scipy_sparse_matrix(torch.LongTensor(edge_list_without_ring))
+    sq.pl.spatial_scatter(adata, connectivity_key="visualize", img=False, **args)
+    plt.savefig(save_path, dpi=1600)
+    del adata.obsp['visualize']
+
+
+def show_distrib_map(adata, title='data_distribution_map', format='hist', **args):
+    assert format in ['hist', 'violin'], \
+        ">>> ERROR: This return data type is not provided now."
+
+    if ('highly_variable' in adata.var):
+        adata = adata[:, adata.var['highly_variable']]
+
+    val = adata.X.todense().reshape(adata.X.shape[0]*adata.X.shape[1]).tolist()[0]
+    if ('violin' == format):
+        df = pd.DataFrame()
+        df['gen_exp'] = val
+        df['name'] = [title]*len(val)
+        sns.violinplot(data=df, **args) 
+        plt.title(title)
+    else:
+        sns.histplot(val, **args)
+        plt.title(title)
+    plt.savefig(title+'.png', dpi=600)
