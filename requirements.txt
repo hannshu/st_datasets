@@ -1,0 +1,12 @@
+scanpy
+pandas
+numpy
+scipy
+matplotlib
+sklearn
+seabon
+squidpy
+
+# not necessary:  
+# torch
+# torch_geometric   # You may need some help with installation from https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html
