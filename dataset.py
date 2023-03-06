@@ -29,7 +29,7 @@ def get_dlpfc_data(id, path=None):
         section_id = id
 
     if (not path):
-        path = os.path.join('st_dataset', 'DLPFC', section_id)
+        path = os.path.join('st_datasets', 'DLPFC', section_id)
     adata = sc.read_visium(path=path)
     adata.var_names_make_unique()
     Ann_df = pd.read_csv(os.path.join(path, 'ground_truth.txt'), 
@@ -42,7 +42,7 @@ def get_dlpfc_data(id, path=None):
 
 def get_human_breast_cancer_data(path=None):
     if (not path):
-        path = 'st_dataset/human_breast_cancer/'
+        path = 'st_datasets/human_breast_cancer/'
     adata = sc.read_visium(path=path)
     adata.var_names_make_unique()
     Ann_df = pd.read_csv(os.path.join(path, 'metadata.csv'), 
@@ -55,7 +55,7 @@ def get_human_breast_cancer_data(path=None):
 
 def get_mouse_brain_cerebellum_data(path=None):
     if (not path):
-        path = 'st_dataset/mouse_brain_cerebellum/'
+        path = 'st_datasets/mouse_brain_cerebellum/'
     adata = build_adata(spot_scale=1., 
                         root_path=path, 
                         name='mouse_brain_cerebellum')
@@ -68,7 +68,7 @@ def get_mouse_brain_sagittal_data(path=None, section=None, cut=None):
         ">>> ERROR: Ambiguous appointment!"
 
     if (not path):
-        path = os.path.join('st_dataset', 'mouse_brain_sagittal', 'section_'+str(section), cut)
+        path = os.path.join('st_datasets', 'mouse_brain_sagittal', 'section_'+str(section), cut)
     adata = build_adata(spot_scale=3., 
                         root_path=path, 
                         name='mouse_brain_sagittal')
@@ -78,7 +78,7 @@ def get_mouse_brain_sagittal_data(path=None, section=None, cut=None):
 
 def get_mouse_kidney_coronal_data(path=None):
     if (not path):
-        path = 'st_dataset/mouse_kidney_coronal/'
+        path = 'st_datasets/mouse_kidney_coronal/'
     adata = build_adata(spot_scale=1., 
                         root_path=path, 
                         name='mouse_kidney_coronal')
@@ -88,7 +88,7 @@ def get_mouse_kidney_coronal_data(path=None):
 
 def get_mouse_olfactory_bulb_ST_data(id, path=None):
     if (not path):
-        path = 'st_dataset/mouse_olfactory_bulb_ST/'
+        path = 'st_datasets/mouse_olfactory_bulb_ST/'
     adata = build_adata(spot_scale=10., 
                         root_path=os.path.join(path, 'slice_{}'.format(id)), 
                         name='mouse_olfactory_bulb_ST_slice_{}'.format(id))
@@ -98,7 +98,7 @@ def get_mouse_olfactory_bulb_ST_data(id, path=None):
 
 def get_mouse_olfactory_bulb_Stereo_seq_data(path=None):
     if (not path):
-        path = 'st_dataset/mouse_olfactory_bulb_Stereo-seq/'
+        path = 'st_datasets/mouse_olfactory_bulb_Stereo-seq/'
     adata = build_adata(spot_scale=2., 
                         root_path=path, 
                         name='mouse_olfactory_bulb_Stereo-seq')
@@ -108,7 +108,7 @@ def get_mouse_olfactory_bulb_Stereo_seq_data(path=None):
 
 def get_mouse_somatosensory_cortex_data(path=None):
     if (not path):
-        path = 'st_dataset/mouse_somatosensory_cortex/'
+        path = 'st_datasets/mouse_somatosensory_cortex/'
     adata = build_adata(spot_scale=2., 
                         root_path=path, 
                         name='mouse_somatosensory_cortex')
