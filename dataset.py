@@ -1,4 +1,5 @@
 import scanpy as sc
+import squidpy as sq
 import pandas as pd
 import time
 import os
@@ -113,3 +114,17 @@ def get_mouse_somatosensory_cortex_data(path=None):
                         name='mouse_somatosensory_cortex')
     cluster_num = len(set(adata.obs['cluster']))
     return adata, cluster_num, 'mouse_somatosensory_cortex'
+
+
+def get_visium_hne_data(path=None):
+    adata = sq.datasets.visium_hne_adata(path=path)
+    adata.var_names_make_unique()
+    cluster_num = len(set(adata.obs['cluster']))
+    return adata, cluster_num, '10x_visium_hne'
+
+
+def get_visium_fluo_data(path=None):
+    adata = sq.datasets.visium_fluo_adata(path=path)
+    adata.var_names_make_unique()
+    cluster_num = len(set(adata.obs['cluster']))
+    return adata, cluster_num, '10x_visium_fluo'
