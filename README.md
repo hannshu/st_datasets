@@ -39,7 +39,7 @@ adata = sq.dataset.dataset_you_need()
 It may take some time to download the datasets when you first use them.
 
 # some tools
-- build graph:  
+- build graph: *(comming soon)*  
 You can build adjacency matrix by using `utils.build_graph()`.  
 We provide two methods to build the graph, KNN or build by radius.  
 We support to return pyg `Data` format data with edge_index and x attribute or `np.array` format adjacency matrix.  
