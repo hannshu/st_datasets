@@ -60,8 +60,7 @@ def get_human_breast_cancer_data(path=None):
 
 
 def get_mouse_brain_sagittal_data(path=None, section: int=None, pos: str=None):
-    assert (section in [1, 2]) and (pos in ['Ant', 'Pos']), \
-        ">>> ERROR: Ambiguous appointment!"
+    assert (section in [1, 2]) and (pos in ['Ant', 'Pos']), ">>> ERROR: Ambiguous appointment!"
     
     file_list = [
         {
@@ -115,9 +114,14 @@ def get_mouse_olfactory_bulb_data(path=None, tech=None, **args):
     
     if ('ST' == tech):
         assert ('id' in args), ">>> ERROR: Ambiguous appointment!"
+        section_list = [
+            'Rep1_MOB_ST_deal.h5ad', 'Rep2_MOB_ST_deal.h5ad', 'Rep3_MOB_ST_deal.h5ad', 'Rep4_MOB_ST_deal.h5ad',
+            'Rep5_MOB_ST_deal.h5ad', 'Rep6_MOB_ST_deal.h5ad', 'Rep7_MOB_ST_deal.h5ad', 'Rep8_MOB_ST_deal.h5ad',
+            'Rep9_MOB_ST_deal.h5ad', 'Rep10_MOB_ST_deal.h5ad', 'Rep11_MOB_ST_deal.h5ad', 'Rep12_MOB_ST_deal.h5ad'
+        ]
         if (not path):
-            path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'ST', 'slice_{}.h5ad'.format(args['id']))
-        url = 'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/ST/slice_{}.h5ad'.format(args['id'])
+            path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', section_list[args['id']])
+        url = 'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/ST/{}'.format(section_list[args['id']])
     elif ('Stereo-seq' == tech):
         if (not path):
             path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'Stereo-seq.h5ad')
@@ -130,7 +134,7 @@ def get_mouse_olfactory_bulb_data(path=None, tech=None, **args):
     adata = sc.read_h5ad(check_file_location(path=path, url=url))
     adata.var_names_make_unique()
 
-    if ('visium' == tech):
+    if ('Stereo-seq' != tech):
         adata.obs['cluster'] = adata.obs['clusters']
     cluster_num = len(set(adata.obs['cluster']))
 
