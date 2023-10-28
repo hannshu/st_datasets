@@ -115,7 +115,11 @@ stds.datasets()
 # load and use dataset
 adata, num = stds.get_data(dataset_func=stds.dataset_you_need, **dataset_specific_args)
 ```
-`get_data()` will return a `sc.Anndata` type st data and the number of clusters in the dataset. 
+`get_data()` will return a `sc.Anndata` type st data and the number of clusters in the dataset.  
+- Please note that st_datasets may generate a proxy file for people who cannot directly download datasets. 
+If you do not need a proxy, just rerun your script again, and the error will disappear.
+For those who cannot access the remote dataset and cannot set a proxy, we provide [**Baidu Netdisk**](https://pan.baidu.com/s/1eMVnLnJvx17Q8NmGgikuZA?pwd=k3k5) 
+to download the dataset.
 
 ### more datasets
 squidpy provide some [annotated ST datasets](https://squidpy.readthedocs.io/en/stable/api.html#module-squidpy.datasets).  
@@ -135,6 +139,6 @@ We provide two methods to build the graph, KNN or build by radius.
 We support to return pyg `Data` format data with edge_index and x attribute or `np.array` format adjacency matrix.  
 
 - show data distribution:  
-You can draw a data distribution map by using `utils.show_distrib_map()`.  
+You can draw a data distribution map by using `stds.show_distrib_map()`.  
 It can draw a histgram or a violin plot using `seaborn`.  
 You can customize your plot by adding seabon parameters.
