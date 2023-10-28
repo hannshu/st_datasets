@@ -11,6 +11,13 @@ from .utils import check_file_location
 home_dir = os.environ['HOME']
 
 
+def datasets():
+    print(">>> INFO: find available datasets:")
+    for key, value in globals().items(): 
+        if (callable(value) and key.startswith('get_') and 'get_data' != key): 
+            print(value)
+
+
 def get_data(dataset_func=None, top_genes=3000, **args):
     start_time = time.time()
     assert (dataset_func), '>>> ERROR: You must appoint a function!'

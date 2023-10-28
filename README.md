@@ -1,33 +1,123 @@
-# CONTENT 
-
-| **dataset**                        | **technology**      | **slices** | **spots/cells** | **genes**     | **source**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-|------------------------------------|---------------------|------------|-----------------|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| DLPFC dataset                      | 10x Genomics Visium | 12         | 3460 - 4789     | 33538         | [link](https://doi.org/10.1038/s41593-020-00787-0)                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| human breast cancer dataset        | 10x Genomics Visium | 1          | 3798            | 36601         | [link](https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Breast_Cancer_Block_A_Section_1 )                                                                                                                                                                                                                                                                                                                                                                               |
-| mouse olfactory bulb dataset       | ST                  | 12         | 231 - 282       | 15284 - 16675 | [link](https://www.science.org/doi/10.1126/science.aaf2403)                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| mouse kidney coronal dataset       | 10x Genomics Visium | 1          | 1438            | 31053         | [link](https://www.10xgenomics.com/resources/datasets/mouse-kidney-section-coronal-1-standard-1-1-0)                                                                                                                                                                                                                                                                                                                                                                                             |
-| mouse brain sagittal dataset       | 10x Genomics Visium | 4          | 2696 - 3353     | 31053         | [link](https://www.10xgenomics.com/resources/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0), [link](https://www.10xgenomics.com/resources/datasets/mouse-brain-serial-section-1-sagittal-posterior-1-standard-1-1-0), [link](https://www.10xgenomics.com/resources/datasets/mouse-brain-serial-section-2-sagittal-anterior-1-standard-1-1-0), [link](https://www.10xgenomics.com/resources/datasets/mouse-brain-serial-section-2-sagittal-posterior-1-standard-1-1-0) |
-| mouse somatosensory cortex dataset | osmFISH             | 1          | 5328            | 33            | [link](https://doi.org/10.1038/s41592-018-0175-z)                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| mouse olfactory bulb dataset       | Stereo-seq          | 1          | 10000           | 26145         | [link](https://doi.org/10.1016/j.cell.2022.04.003)                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| mouse brain cerebellum dataset     | Slide-seq           | 1          | 25551           | 20141         | [link](https://www.science.org/doi/10.1126/science.aaw1219)                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+# st_datasets 
 
 
+<details>
+<summary>Dataset details</summary>
+<table>
+    <thead>
+        <tr>
+            <th>dataset</th>
+            <th>technology</th>
+            <th>slices</th>
+            <th>spots/cells</th>
+            <th>genes</th>
+            <th>source</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>DLPFC dataset</th>
+            <td>10x Genomics Visium</td>
+            <td>12</td>
+            <td>3460 - 4789</td>
+            <td>33538</td>
+            <td>10x visium database</td>
+        </tr>
+        <tr>
+            <th>human breast cancer dataset</th>
+            <td>10x Genomics Visium</td>
+            <td>1</td>
+            <td>3798</td>
+            <td>36601</td>
+            <td>10x visium database</td>
+        </tr>
+        <tr>
+            <th>mouse olfactory bulb dataset</th>
+            <td>ST</td>
+            <td>12</td>
+            <td>231 - 282</td>
+            <td>15284 - 16675</td>
+            <td>stomicsDB</td>
+        </tr>
+        <tr>
+            <th>mouse kidney coronal dataset*</th>
+            <td>10x Genomics Visium</td>
+            <td>1</td>
+            <td>1438</td>
+            <td>31053</td>
+            <td>converted</td>
+        </tr>
+        <tr>
+            <th>mouse brain sagittal dataset</th>
+            <td>10x Genomics Visium</td>
+            <td>4</td>
+            <td>2696 - 3353</td>
+            <td>31053</td>
+            <td>stomicsDB</td>
+        </tr>
+        <tr>
+            <th>mouse somatosensory cortex dataset*</th>
+            <td>osmFISH</td>
+            <td>1</td>
+            <td>5328</td>
+            <td>33</td>
+            <td>converted</td>
+        </tr>
+        <tr>
+            <th>mouse olfactory bulb dataset*</th>
+            <td>Stereo-seq</td>
+            <td>1</td>
+            <td>10000</td>
+            <td>26145</td>
+            <td>converted</td>
+        </tr>
+        <tr>
+            <th>mouse brain cerebellum dataset*</th>
+            <td>Slide-seq</td>
+            <td>1</td>
+            <td>25551</td>
+            <td>20141</td>
+            <td>converted</td>
+        </tr>
+        <tr>
+            <th>Mouse Organogenesis Spatiotemporal Transcriptomic Atlas (E9.5)</th>
+            <td>Stereo-seq</td>
+            <td>5</td>
+            <td>4356 - 5931</td>
+            <td>24238</td>
+            <td>stomicsDB</td>
+        </tr>
+        <tr>
+            <th>Zebrafish Embryogenesis Spatiotemporal Transcriptomic Atlas</th>
+            <td>Stereo-seq</td>
+            <td>1 (with 6 sections)</td>
+            <td>13166</td>
+            <td>26628</td>
+            <td>stomicsDB</td>
+        </tr>
+    </tbody>
+</table>
 
-- DISCLAIMER: mouse olfactory bulb dataset, mouse kidney coronal dataset, mouse brain sagittal dataset, mouse somatosensory cortex dataset, mouse olfactory bulb dataset and mouse brain cerebellum dataset are converted from [**this repository**](https://github.com/acheng416/Benchmark-CTCM-ST.git), which may have some mistakes. If you use those datasets mentioned above in your experiments, you should consider citing [**this paper**](https://academic.oup.com/bib/article/doi/10.1093/bib/bbac475/6835380).
+\* Dataset are converted from [**this repository**](https://github.com/acheng416/Benchmark-CTCM-ST.git). If you use those datasets mentioned above in your experiments, you should consider citing [**this paper**](https://academic.oup.com/bib/article/doi/10.1093/bib/bbac475/6835380).
 
+</details>
 
-# guide
+## guide
 Clone this repository into your project root first.
 Then you can simply using all the dataset by the code below.
 
 ``` python
-from st_datasets.dataset import get_data, dataset_you_need  # or you can use * to import all
+import st_datasets as stds
 
-adata, num = get_data(dataset_func=dataset_you_need, **dataset_specific_args)
+# find datasets you need
+stds.datasets()
+
+# load and use dataset
+adata, num = stds.get_data(dataset_func=stds.dataset_you_need, **dataset_specific_args)
 ```
 `get_data()` will return a `sc.Anndata` type st data and the number of clusters in the dataset. 
 
-# more datasets
+### more datasets
 squidpy provide some [annotated ST datasets](https://squidpy.readthedocs.io/en/stable/api.html#module-squidpy.datasets).  
 You can use those datasets by the following code.
 
@@ -38,7 +128,7 @@ adata = sq.dataset.dataset_you_need()
 ```
 It may take some time to download the datasets when you first use them.
 
-# some tools
+## tools
 - build graph: *(comming soon)*  
 You can build adjacency matrix by using `utils.build_graph()`.  
 We provide two methods to build the graph, KNN or build by radius.  
