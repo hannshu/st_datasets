@@ -133,12 +133,31 @@ adata = sq.dataset.dataset_you_need()
 It may take some time to download the datasets when you first use them.
 
 ## tools
-- build graph: *(comming soon)*  
-You can build adjacency matrix by using `utils.build_graph()`.  
-We provide two methods to build the graph, KNN or build by radius.  
-We support to return pyg `Data` format data with edge_index and x attribute or `np.array` format adjacency matrix.  
+### Preprocessing 
+You can use st_datasets to do preprocessing such as:  
+- `stds.pp.build_graph()` build spatial graph.  
+- `stds.pp.convert_edge_to_adj()` and `stds.pp.convert_adj_to_edge()` can convert edge list to adjacency matrix, verse vise.  
+- `stds.pp.concat_adjacency_matrix()` concate multiple adjacency matrix.  
+- `stds.pp.conv_to_one_hot()` convert category label to one hot. 
 
-- show data distribution:  
-You can draw a data distribution map by using `stds.show_distrib_map()`.  
-It can draw a histgram or a violin plot using `seaborn`.  
-You can customize your plot by adding seabon parameters.
+### Plotting
+You can use st_datasets to do plotting such as:  
+- `stds.pl.show_distrib_map()` draw distribution image.  
+- `stds.pl.visualize_graph()` draw spatial graph.  
+
+### Clustering
+You can use st_datasets to do clustering by `stds.cl.evaluate_embedding()`.  
+We currently support clustering methods such as:  
+- R package mclust-EEE algorithm  
+- K-Means clustering method
+- Birch clustering method  
+- Gaussian Mixture clustering method  
+- Agglomerative clustering method  
+
+
+We also support evaluation methods such as:  
+- ARI
+- NMI
+- AMI
+- V measure score
+- silhouette score (unsupervised)
