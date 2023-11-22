@@ -1,6 +1,5 @@
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
-from rpy2.rinterface_lib.embedded import RRuntimeError
 
 
 # mclust-EEE clustering method
@@ -43,8 +42,8 @@ def evaluate_embedding(adata, n_cluster, cluster_method=['mclust'], cluster_scor
             pred_label = LabelEncoder().fit_transform(obs_df['mclust']).astype(str)
             score['mclust'] = cal_cluster_score(true_label, pred_label, cluster_score_method)
             print(f">>> INFO: Finish mclust clustering, clustering score {score['mclust']:.3f}")
-    except (TypeError or RRuntimeError):
-        print('>>> WARNING: mclust report TypeError')
+    except Exception as e:
+        print(f'>>> WARNING: mclust report TypeError : {e}')
         score['mclust'] = -1
 
     if ('kmeans' in cluster_method):

@@ -32,13 +32,7 @@ def build_graph(adata: sc.AnnData, radius=None, knears=None, distance_metrics='l
 
 
 def convert_edge_to_adj(edge_list, spot_num=None, dense=True):
-    edge_list = [(edge_list[0][i], edge_list[1][i]) for i in range(len(edge_list[0]))]
-
-    if (spot_num):
-        g = nx.empty_graph(spot_num)
-        g.add_edges_from(edge_list)
-    else:
-        g = nx.Graph(edge_list)
+    g = build_nx_graph(edge_list, spot_num)
     
     if (dense):
         return nx.adjacency_matrix(g).todense()
@@ -70,3 +64,22 @@ def conv_to_one_hot(X, n):
     refer = np.eye(n)
     X_one_hot = refer[X]
     return X_one_hot
+
+
+def k_hop_neighbor(edge_list, adj, k, spot_num=None):
+    if (edge_list):
+        adj = convert_edge_to_adj(edge_list, spot_num)
+
+    return adj ** k
+
+
+def build_nx_graph(edge_list, spot_num=None):
+    edge_list = [(edge_list[0][i], edge_list[1][i]) for i in range(len(edge_list[0]))]
+
+    if (spot_num):
+        g = nx.empty_graph(spot_num)
+        g.add_edges_from(edge_list)
+    else:
+        g = nx.Graph(edge_list)
+
+    return g

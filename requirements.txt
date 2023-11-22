@@ -7,3 +7,4 @@ scikit-learn
 seaborn
 squidpy
 networkx
+# rpy2  OPTIONAL (If you need to use mclust clustering, you have to install rpy2) 
