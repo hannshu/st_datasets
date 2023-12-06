@@ -1,7 +1,7 @@
 import pandas as pd
 import scanpy as sc
 import numpy as np
-import networkx as nx
+import igraph as ig
 from sklearn.neighbors import NearestNeighbors
 import time
 
@@ -26,22 +26,50 @@ def build_graph(adata: sc.AnnData, radius=None, knears=None, distance_metrics='l
         _, indices = nbrs.kneighbors(coor)
 
     edge_list = np.array([[i, j] for i, sublist in enumerate(indices) for j in sublist])
-    print(f">>> INFO: Generate {edge_list.shape[0]} edges, {edge_list.shape[0] / adata.shape[0]:.3f} edges per spot.({time.time() - start:.3f}s)")
+    print(f">>> INFO: Generate {edge_list.shape[0]} edges, {(edge_list.shape[0] / adata.shape[0]) - 1:.3f} edges per spot.({time.time() - start:.3f}s)")
 
     return edge_list
 
 
 def convert_edge_to_adj(edge_list, spot_num=None, dense=True):
-    g = build_nx_graph(edge_list, spot_num)
+    g = ig.Graph(n=spot_num, edges=edge_list.T)
     
     if (dense):
-        return nx.adjacency_matrix(g).todense()
+        return np.asarray(g.get_adjacency_sparse().todense())
     else:
-        return nx.adjacency_matrix(g)
+        return g.get_adjacency_sparse()
 
 
 def convert_adj_to_edge(adj: np.array):
-    return np.nonzero(adj)
+    return np.array(np.nonzero(adj))
+
+
+def get_not_adjacency_pair(adj: np.array):
+    return np.array(np.nonzero(adj == 0))
+
+
+def add_self_loop(edge_list, spot_num=None):
+    if (spot_num):
+        self_loop = np.arange(0, spot_num)
+    else:
+        self_loop = np.arange(0, np.max(edge_list))
+    no_loop_list = delete_self_loop(edge_list)
+    result_list = np.array([
+        np.concatenate(no_loop_list[0], self_loop),
+        np.concatenate(no_loop_list[1], self_loop)
+    ])
+
+    return result_list
+
+
+def delete_self_loop(edge_list):
+    non_duplicate_element = edge_list[0, :] != edge_list[1, :]
+    filtered_array = np.array([
+        edge_list[0][non_duplicate_element], 
+        edge_list[1][non_duplicate_element]
+    ])
+
+    return filtered_array
 
 
 def concat_adjacency_matrix(adata_list, edge_list, return_type=None):
@@ -66,20 +94,8 @@ def conv_to_one_hot(X, n):
     return X_one_hot
 
 
-def k_hop_neighbor(edge_list, adj, k, spot_num=None):
+def k_hop_adj(edge_list, adj, k, spot_num=None):
     if (edge_list):
         adj = convert_edge_to_adj(edge_list, spot_num)
 
     return adj ** k
-
-
-def build_nx_graph(edge_list, spot_num=None):
-    edge_list = [(edge_list[0][i], edge_list[1][i]) for i in range(len(edge_list[0]))]
-
-    if (spot_num):
-        g = nx.empty_graph(spot_num)
-        g.add_edges_from(edge_list)
-    else:
-        g = nx.Graph(edge_list)
-
-    return g
