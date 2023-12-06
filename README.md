@@ -1,5 +1,6 @@
 # st_datasets 
 
+English | [中文简体](./README_zh.md)
 
 <details>
 <summary>Dataset details</summary>
@@ -64,12 +65,12 @@
             <td>converted</td>
         </tr>
         <tr>
-            <th>mouse olfactory bulb dataset*</th>
+            <th>mouse olfactory bulb dataset^</th>
             <td>Stereo-seq</td>
             <td>1</td>
-            <td>10000</td>
-            <td>26145</td>
-            <td>converted</td>
+            <td>19109</td>
+            <td>27106</td>
+            <td>https://doi.org/10.1016/j.cell.2022.04.003</td>
         </tr>
         <tr>
             <th>mouse brain cerebellum dataset*</th>
@@ -100,6 +101,9 @@
 
 \* Dataset are converted from [**this repository**](https://github.com/acheng416/Benchmark-CTCM-ST.git). If you use those datasets mentioned above in your experiments, you should consider citing [**this paper**](https://academic.oup.com/bib/article/doi/10.1093/bib/bbac475/6835380).
 
+\^ Mouse olfactory bulb dataset obtained by Stereo-seq has been updated in the new commit, *the new version data **do not** have annotation*, but the original data is not removed from [**the huggingface repo**](https://huggingface.co/datasets/han-shu/st_datasets), if you need the old version data, please use the former commit (commit [**#c56d877**](https://github.com/hannshu/st_datasets/tree/c56d877a001071cb7b2cb4c222491ce20e026c22)
+) of `st_datasets`!
+
 </details>
 
 ## guide
@@ -116,10 +120,11 @@ stds.datasets()
 adata, num = stds.get_data(dataset_func=stds.dataset_you_need, **dataset_specific_args)
 ```
 `get_data()` will return a `sc.Anndata` type st data and the number of clusters in the dataset.  
-- Please note that st_datasets may generate a proxy file for people who cannot directly download datasets. 
+- Please note that `st_datasets` may generate a proxy file the first time it is set up, which
+may help people who cannot directly download datasets. 
 If you do not need a proxy, just rerun your script again, and the error will disappear.
 For those who cannot access the remote dataset and cannot set a proxy, we provide [**Baidu Netdisk**](https://pan.baidu.com/s/1eMVnLnJvx17Q8NmGgikuZA?pwd=k3k5) 
-to download the dataset.
+to download the dataset. Please place the `data` folder in your user root directory.
 
 ### more datasets
 squidpy provide some [annotated ST datasets](https://squidpy.readthedocs.io/en/stable/api.html#module-squidpy.datasets).  
@@ -134,19 +139,22 @@ It may take some time to download the datasets when you first use them.
 
 ## tools
 ### Preprocessing 
-You can use st_datasets to do preprocessing such as:  
+You can use `st_datasets` to do preprocessing such as:  
 - `stds.pp.build_graph()` build spatial graph.  
 - `stds.pp.convert_edge_to_adj()` and `stds.pp.convert_adj_to_edge()` can convert edge list to adjacency matrix, verse vise.  
+- `stds.pp.get_not_adjacency_pair()` get non adjacency spot pair (not linked edges).  
+- `stds.pp.add_self_loop()` and `stds.pp.delete_self_loop()` add or delete self loop of the graph.  
 - `stds.pp.concat_adjacency_matrix()` concate multiple adjacency matrix.  
-- `stds.pp.conv_to_one_hot()` convert category label to one hot. 
+- `stds.pp.conv_to_one_hot()` convert category label to one hot.  
+- `stds.pp.k_hop_adj()` generate k hop adjacency matrix. 
 
 ### Plotting
-You can use st_datasets to do plotting such as:  
+You can use `st_datasets` to do plotting such as:  
 - `stds.pl.show_distrib_map()` draw distribution image.  
 - `stds.pl.visualize_graph()` draw spatial graph.  
 
 ### Clustering
-You can use st_datasets to do clustering by `stds.cl.evaluate_embedding()`.  
+You can use `st_datasets` to do clustering by `stds.cl.evaluate_embedding()`.  
 We currently support clustering methods such as:  
 - R package mclust-EEE algorithm  
 - K-Means clustering method

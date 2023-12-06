@@ -26,7 +26,9 @@ def get_data(dataset_func=None, top_genes=3000, **args):
     sc.pp.highly_variable_genes(adata, flavor="seurat_v3", n_top_genes=top_genes)
     sc.pp.normalize_total(adata, target_sum=1e4)
     sc.pp.log1p(adata)
-    adata.obs['cluster'] = adata.obs['cluster'].astype(str)
+
+    if ('cluster' in adata.obs):
+        adata.obs['cluster'] = adata.obs['cluster'].astype(str)
     print('>>> INFO: dataset name: {}, size: ({}, {}), cluster: {}.({:.3f}s)'.format(
         dataset_details, adata.X.shape[0], adata.X.shape[1], n_cluster, time.time() - start_time
     ))
@@ -131,8 +133,8 @@ def get_mouse_olfactory_bulb_data(path=None, tech=None, **args):
         url = 'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/ST/{}'.format(section_list[args['id']])
     elif ('Stereo-seq' == tech):
         if (not path):
-            path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'Stereo-seq.h5ad')
-        url = f'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/Stereo-seq.h5ad'
+            path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'mob_stereo_seq.h5ad')
+        url = f'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/mob_stereo_seq.h5ad'
     else:
         if (not path):
             path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'GSM4656181_10x_Visium_deal.h5ad')
@@ -143,7 +145,9 @@ def get_mouse_olfactory_bulb_data(path=None, tech=None, **args):
 
     if ('Stereo-seq' != tech):
         adata.obs['cluster'] = adata.obs['clusters']
-    cluster_num = len(set(adata.obs['cluster']))
+        cluster_num = len(set(adata.obs['cluster']))
+    else:
+        cluster_num = None
 
     return adata, cluster_num, f'mouse olfactory bulb obtained by {tech}'
 
