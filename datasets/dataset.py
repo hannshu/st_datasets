@@ -18,14 +18,15 @@ def datasets():
             print(value)
 
 
-def get_data(dataset_func=None, top_genes=3000, **args):
+def get_data(dataset_func=None, top_genes=3000, preprocess=True, **args):
     start_time = time.time()
     assert (dataset_func), '>>> ERROR: You must appoint a function!'
 
     adata, n_cluster, dataset_details = dataset_func(**args)
     sc.pp.highly_variable_genes(adata, flavor="seurat_v3", n_top_genes=top_genes)
-    sc.pp.normalize_total(adata, target_sum=1e4)
-    sc.pp.log1p(adata)
+    if (preprocess):
+        sc.pp.normalize_total(adata, target_sum=1e4)
+        sc.pp.log1p(adata)
 
     if ('cluster' in adata.obs):
         adata.obs['cluster'] = adata.obs['cluster'].astype(str)
@@ -193,3 +194,16 @@ def get_mosta_data(path=None, id=None):
     cluster_num = len(set(adata.obs['cluster']))
 
     return adata, cluster_num, f'mouse organogenesis spatiotemporal transcriptomic atlas (MOSTA), section: {id}'
+
+
+def get_outside_data(path=None, url=None):
+    assert (path) or (url), '>>> ERROR: at lease provide a prth or a url!'
+
+    if (None == path):
+        # if obtain data from remote, download to ~/data/user_downloaded/data_name.h5ad
+        path = os.path.join(home_dir, 'data', 'user_downloaded', url.split('/')[-1])
+
+    adata = sc.read_h5ad(check_file_location(path=path, url=url))
+    adata.var_names_make_unique()
+
+    return adata, None, f'Outside dataset'

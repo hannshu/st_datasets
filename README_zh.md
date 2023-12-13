@@ -123,6 +123,8 @@ adata, num = stds.get_data(dataset_func=stds.dataset_you_need, **dataset_specifi
 运行您的脚本，如果您需要配置代理，请依照指示设置代理。若您无法下载数据集，我们还将数据存放在[**Baidu Netdisk**](https://pan.baidu.com/s/1eMVnLnJvx17Q8NmGgikuZA?pwd=k3k5)上，请在下载完成后将`data`文件夹
 放置在用户根目录下。
 
+- 我们鼓励您从[**stomicsdb**](https://db.cngb.org/stomics/)或其他外部数据库获取ST数据。您可以直接通过 `stds.get_data(stds.get_outside_data, url=data_url)`下载您的数据。`st_datasets`会将您的数据保存在`~/data/user_download/`。您可以通过data_url再次使用数据。
+
 ### 更多数据集
 squidpy 也提供了一些数据集 [annotated ST datasets](https://squidpy.readthedocs.io/en/stable/api.html#module-squidpy.datasets).  
 您可以通过以下代码获取该数据集中的数据。

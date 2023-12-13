@@ -126,6 +126,10 @@ If you do not need a proxy, just rerun your script again, and the error will dis
 For those who cannot access the remote dataset and cannot set a proxy, we provide [**Baidu Netdisk**](https://pan.baidu.com/s/1eMVnLnJvx17Q8NmGgikuZA?pwd=k3k5) 
 to download the dataset. Please place the `data` folder in your user root directory.
 
+- We encourage you to find the data you need from [**stomicsdb**](https://db.cngb.org/stomics/) or other st database. You can easily download data
+from an outside database by `stds.get_data(stds.get_outside_data, url=data_url)`. `st_datasets` will download your data to `~/data/user_download/`.
+You can access your data again by providing the data_url.
+
 ### more datasets
 squidpy provide some [annotated ST datasets](https://squidpy.readthedocs.io/en/stable/api.html#module-squidpy.datasets).  
 You can use those datasets by the following code.

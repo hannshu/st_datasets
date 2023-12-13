@@ -87,11 +87,12 @@ def concat_adjacency_matrix(adata_list, edge_list, return_type=None):
         return edges.T
     
 
-def conv_to_one_hot(X, n):
-    X = np.array(X).astype(int)
-    refer = np.eye(n)
-    X_one_hot = refer[X]
-    return X_one_hot
+def conv_to_one_hot(X):
+    from sklearn.preprocessing import OneHotEncoder
+
+    enc = OneHotEncoder(sparse=False)
+    one_hot = enc.fit_transform(X.reshape(-1, 1)) 
+    return one_hot
 
 
 def k_hop_adj(edge_list, adj, k, spot_num=None):
