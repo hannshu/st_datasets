@@ -5,98 +5,123 @@ English | [中文简体](./README_zh.md)
 <details>
 <summary>Dataset details</summary>
 <table>
-    <thead>
-        <tr>
-            <th>dataset</th>
-            <th>technology</th>
-            <th>slices</th>
-            <th>spots/cells</th>
-            <th>genes</th>
-            <th>source</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th>DLPFC dataset</th>
-            <td>10x Genomics Visium</td>
-            <td>12</td>
-            <td>3460 - 4789</td>
-            <td>33538</td>
-            <td>10x visium database</td>
-        </tr>
-        <tr>
-            <th>human breast cancer dataset</th>
-            <td>10x Genomics Visium</td>
-            <td>1</td>
-            <td>3798</td>
-            <td>36601</td>
-            <td>10x visium database</td>
-        </tr>
-        <tr>
-            <th>mouse olfactory bulb dataset</th>
-            <td>ST</td>
-            <td>12</td>
-            <td>231 - 282</td>
-            <td>15284 - 16675</td>
-            <td>stomicsDB</td>
-        </tr>
-        <tr>
-            <th>mouse kidney coronal dataset*</th>
-            <td>10x Genomics Visium</td>
-            <td>1</td>
-            <td>1438</td>
-            <td>31053</td>
-            <td>converted</td>
-        </tr>
-        <tr>
-            <th>mouse brain sagittal dataset</th>
-            <td>10x Genomics Visium</td>
-            <td>4</td>
-            <td>2696 - 3353</td>
-            <td>31053</td>
-            <td>stomicsDB</td>
-        </tr>
-        <tr>
-            <th>mouse somatosensory cortex dataset*</th>
-            <td>osmFISH</td>
-            <td>1</td>
-            <td>5328</td>
-            <td>33</td>
-            <td>converted</td>
-        </tr>
-        <tr>
-            <th>mouse olfactory bulb dataset^</th>
-            <td>Stereo-seq</td>
-            <td>1</td>
-            <td>19109</td>
-            <td>27106</td>
-            <td>https://doi.org/10.1016/j.cell.2022.04.003</td>
-        </tr>
-        <tr>
-            <th>mouse brain cerebellum dataset*</th>
-            <td>Slide-seq</td>
-            <td>1</td>
-            <td>25551</td>
-            <td>20141</td>
-            <td>converted</td>
-        </tr>
-        <tr>
-            <th>Mouse Organogenesis Spatiotemporal Transcriptomic Atlas (E9.5)</th>
-            <td>Stereo-seq</td>
-            <td>5</td>
-            <td>4356 - 5931</td>
-            <td>24238</td>
-            <td>stomicsDB</td>
-        </tr>
-        <tr>
-            <th>Zebrafish Embryogenesis Spatiotemporal Transcriptomic Atlas</th>
-            <td>Stereo-seq</td>
-            <td>1 (with 6 sections)</td>
-            <td>13166</td>
-            <td>26628</td>
-            <td>stomicsDB</td>
-        </tr>
-    </tbody>
+    <tr>
+        <td>dataset</td>
+        <td>technology</td>
+        <td>label</td>
+        <td>slices</td>
+        <td>spots/cells</td>
+        <td>genes</td>
+        <td>source</td>
+    </tr>
+    <tr>
+        <td>DLPFC dataset</td>
+        <td>10x Genomics Visium</td>
+        <td>True</td>
+        <td>12</td>
+        <td>3460 - 4789</td>
+        <td>33538</td>
+        <td>10x visium database</td>
+    </tr>
+    <tr>
+        <td>human breast cancer dataset</td>
+        <td>10x Genomics Visium</td>
+        <td>True</td>
+        <td>1</td>
+        <td>3798</td>
+        <td>36601</td>
+        <td>10x visium database</td>
+    </tr>
+    <tr>
+        <td>mouse olfactory bulb dataset</td>
+        <td>ST</td>
+        <td>True</td>
+        <td>12</td>
+        <td>231 - 282</td>
+        <td>15284 - 16675</td>
+        <td>stomicsDB</td>
+    </tr>
+    <tr>
+        <td>mouse olfactory bulb dataset</td>
+        <td>10x Genomics Visium</td>
+        <td>True</td>
+        <td>1</td>
+        <td>918 </td>
+        <td>31053</td>
+        <td>stomicsDB</td>
+    </tr>
+    <tr>
+        <td>mouse olfactory bulb dataset^</td>
+        <td>Stereo-seq</td>
+        <td>False^</td>
+        <td>1</td>
+        <td>19109</td>
+        <td>27106</td>
+        <td>https://doi.org/10.1016/j.cell.2022.04.003</td>
+    </tr>
+    <tr>
+        <td>mouse olfactory bulb dataset (Puck_200127_15)</td>
+        <td>Slide-seq V2</td>
+        <td>False</td>
+        <td>1</td>
+        <td>21724 </td>
+        <td>21220</td>
+        <td>https://singlecell.broadinstitute.org/single_cell/study/SCP815/highly-sensitive-spatial-transcriptomics-at-near-cellular-resolution-with-slide-seqv2#study-download</td>
+    </tr>
+    <tr>
+        <td>mouse kidney coronal dataset*</td>
+        <td>10x Genomics Visium</td>
+        <td>True</td>
+        <td>1</td>
+        <td>1438</td>
+        <td>31053</td>
+        <td>converted</td>
+    </tr>
+    <tr>
+        <td>mouse brain sagittal dataset</td>
+        <td>10x Genomics Visium</td>
+        <td>True</td>
+        <td>4</td>
+        <td>2696 - 3353</td>
+        <td>31053</td>
+        <td>stomicsDB</td>
+    </tr>
+    <tr>
+        <td>mouse somatosensory cortex dataset*</td>
+        <td>osmFISH</td>
+        <td>True</td>
+        <td>1</td>
+        <td>5328</td>
+        <td>33</td>
+        <td>converted</td>
+    </tr>
+    <tr>
+        <td>mouse brain cerebellum dataset*</td>
+        <td>Slide-seq</td>
+        <td>True</td>
+        <td>1</td>
+        <td>25551</td>
+        <td>20141</td>
+        <td>converted</td>
+    </tr>
+    <tr>
+        <td>Mouse Organogenesis Spatiotemporal Transcriptomic Atlas (E9.5)</td>
+        <td>Stereo-seq</td>
+        <td>True</td>
+        <td>5</td>
+        <td>4356 - 5931</td>
+        <td>24238</td>
+        <td>stomicsDB</td>
+    </tr>
+    <tr>
+        <td>Zebrafish Embryogenesis Spatiotemporal Transcriptomic Atlas</td>
+        <td>Stereo-seq</td>
+        <td>True</td>
+        <td>1 (with 6 sections)</td>
+        <td>13166</td>
+        <td>26628</td>
+        <td>stomicsDB</td>
+    </tr>
 </table>
 
 \* Dataset are converted from [**this repository**](https://github.com/acheng416/Benchmark-CTCM-ST.git). If you use those datasets mentioned above in your experiments, you should consider citing [**this paper**](https://academic.oup.com/bib/article/doi/10.1093/bib/bbac475/6835380).

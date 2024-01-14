@@ -120,7 +120,7 @@ def get_mouse_kidney_coronal_data(path=None):
 
 
 def get_mouse_olfactory_bulb_data(path=None, tech=None, **args):
-    assert (tech in ['visium', 'Stereo-seq', 'ST']), ">>> ERROR: Ambiguous appointment!"
+    assert (tech in ['visium', 'Stereo-seq', 'ST', 'Slide_seqV2']), ">>> ERROR: Ambiguous appointment!"
     
     if ('ST' == tech):
         assert ('id' in args), ">>> ERROR: Ambiguous appointment!"
@@ -136,6 +136,10 @@ def get_mouse_olfactory_bulb_data(path=None, tech=None, **args):
         if (not path):
             path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'mob_stereo_seq.h5ad')
         url = f'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/mob_stereo_seq.h5ad'
+    elif ('Slide_seqV2' == tech):
+        if (not path):
+            path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'Mob_200127_15.h5ad')
+        url = f'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/Mob_200127_15.h5ad'
     else:
         if (not path):
             path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'GSM4656181_10x_Visium_deal.h5ad')
@@ -144,7 +148,7 @@ def get_mouse_olfactory_bulb_data(path=None, tech=None, **args):
     adata = sc.read_h5ad(check_file_location(path=path, url=url))
     adata.var_names_make_unique()
 
-    if ('Stereo-seq' != tech):
+    if (not (('Stereo-seq' == tech) or ('Slide_seqV2' == tech))):
         adata.obs['cluster'] = adata.obs['clusters']
         cluster_num = len(set(adata.obs['cluster']))
     else:
