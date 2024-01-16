@@ -33,6 +33,15 @@ English | [中文简体](./README_zh.md)
         <td>10x visium database</td>
     </tr>
     <tr>
+        <td>mouse brain coronal dataset</td>
+        <td>10x Genomics Visium</td>
+        <td>True</td>
+        <td>1</td>
+        <td>2264 </td>
+        <td>19465</td>
+        <td>stomicsDB</td>
+    </tr>
+    <tr>
         <td>mouse olfactory bulb dataset</td>
         <td>ST</td>
         <td>True</td>
@@ -144,6 +153,7 @@ stds.datasets()
 # load and use dataset
 adata, num = stds.get_data(dataset_func=stds.dataset_you_need, **dataset_specific_args)
 ```
+
 `get_data()` will return a `sc.Anndata` type st data and the number of clusters in the dataset.  
 - Please note that `st_datasets` may generate a proxy file the first time it is set up, which
 may help people who cannot directly download datasets. 
@@ -162,7 +172,7 @@ You can use those datasets by the following code.
 ``` python
 import squidpy as sq
 
-adata = sq.dataset.dataset_you_need()
+adata, _ = stds.get_data(sq.dataset.dataset_you_need)
 ```
 It may take some time to download the datasets when you first use them.
 

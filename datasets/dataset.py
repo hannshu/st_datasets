@@ -1,6 +1,4 @@
 import scanpy as sc
-import squidpy as sq
-import pandas as pd
 import numpy as np
 import time
 import os
@@ -9,6 +7,7 @@ from .utils import check_file_location
 
 
 home_dir = os.environ['HOME']
+dataset_url = 'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main'
 
 
 def datasets():
@@ -22,7 +21,12 @@ def get_data(dataset_func=None, top_genes=3000, preprocess=True, **args):
     start_time = time.time()
     assert (dataset_func), '>>> ERROR: You must appoint a function!'
 
-    adata, n_cluster, dataset_details = dataset_func(**args)
+    if (dataset_func in globals().items()):
+        adata, n_cluster, dataset_details = dataset_func(**args)
+    else:
+        adata = dataset_func(**args)
+        n_cluster = None
+        dataset_details = str(dataset_func)
     sc.pp.highly_variable_genes(adata, flavor="seurat_v3", n_top_genes=top_genes)
     if (preprocess):
         sc.pp.normalize_total(adata, target_sum=1e4)
@@ -48,7 +52,7 @@ def get_dlpfc_data(id, path=None):
 
     if (not path):
         path = os.path.join(home_dir, 'data', 'DLPFC', f'DLPFC_{section_id}.h5ad')
-    url = f'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/DLPFC/DLPFC_{section_id}.h5ad'
+    url = f'{dataset_url}/DLPFC/DLPFC_{section_id}.h5ad'
 
     adata = sc.read_h5ad(check_file_location(path=path, url=url))
     adata.var_names_make_unique()
@@ -60,13 +64,25 @@ def get_dlpfc_data(id, path=None):
 def get_human_breast_cancer_data(path=None):
     if (not path):
         path = os.path.join(home_dir, 'data', 'human_breast_cancer.h5ad')
-    url = 'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/human_breast_cancer.h5ad'
+    url = f'{dataset_url}/human_breast_cancer.h5ad'
 
     adata = sc.read_h5ad(check_file_location(path=path, url=url))
     adata.var_names_make_unique()
     cluster_num = len(set(adata.obs['cluster']))
 
     return adata, cluster_num, 'human breast cancer'
+
+
+def get_mouse_brain_ffpe_data(path=None):
+    if (not path):
+        path = os.path.join(home_dir, 'data', 'FFPE_Mouse_Brain.h5ad')
+    url = f'{dataset_url}/FFPE_Mouse_Brain.h5ad'
+
+    adata = sc.read_h5ad(check_file_location(path=path, url=url))
+    adata.var_names_make_unique()
+    cluster_num = len(set(adata.obs['cluster']))
+
+    return adata, cluster_num, 'mouse brain coronal FFPE data'
 
 
 def get_mouse_brain_sagittal_data(path=None, section: int=None, pos: str=None):
@@ -98,7 +114,7 @@ def get_mouse_brain_sagittal_data(path=None, section: int=None, pos: str=None):
 def get_mouse_brain_cerebellum_data(path=None):
     if (not path):
         path = os.path.join(home_dir, 'data', 'mouse_brain_cerebellum.h5ad')
-    url = 'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_brain_cerebellum.h5ad'
+    url = f'{dataset_url}/mouse_brain_cerebellum.h5ad'
 
     adata = sc.read_h5ad(check_file_location(path=path, url=url))
     adata.var_names_make_unique()
@@ -110,7 +126,7 @@ def get_mouse_brain_cerebellum_data(path=None):
 def get_mouse_kidney_coronal_data(path=None):
     if (not path):
         path = os.path.join(home_dir, 'data', 'mouse_kidney_coronal.h5ad')
-    url = 'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_kidney_coronal.h5ad'
+    url = f'{dataset_url}/mouse_kidney_coronal.h5ad'
 
     adata = sc.read_h5ad(check_file_location(path=path, url=url))
     adata.var_names_make_unique()
@@ -131,19 +147,19 @@ def get_mouse_olfactory_bulb_data(path=None, tech=None, **args):
         ]
         if (not path):
             path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', section_list[args['id']])
-        url = 'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/ST/{}'.format(section_list[args['id']])
+        url = f'{dataset_url}/mouse_olfactory_bulb/ST/{section_list[args["id"]]}'
     elif ('Stereo-seq' == tech):
         if (not path):
             path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'mob_stereo_seq.h5ad')
-        url = f'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/mob_stereo_seq.h5ad'
+        url = f'{dataset_url}/mouse_olfactory_bulb/mob_stereo_seq.h5ad'
     elif ('Slide_seqV2' == tech):
         if (not path):
             path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'Mob_200127_15.h5ad')
-        url = f'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/Mob_200127_15.h5ad'
+        url = f'{dataset_url}/mouse_olfactory_bulb/Mob_200127_15.h5ad'
     else:
         if (not path):
             path = os.path.join(home_dir, 'data', 'mouse_olfactory_bulb', 'GSM4656181_10x_Visium_deal.h5ad')
-        url = f'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_olfactory_bulb/GSM4656181_10x_Visium_deal.h5ad'
+        url = f'{dataset_url}/mouse_olfactory_bulb/GSM4656181_10x_Visium_deal.h5ad'
 
     adata = sc.read_h5ad(check_file_location(path=path, url=url))
     adata.var_names_make_unique()
@@ -160,7 +176,7 @@ def get_mouse_olfactory_bulb_data(path=None, tech=None, **args):
 def get_mouse_somatosensory_cortex_data(path=None):
     if (not path):
         path = os.path.join(home_dir, 'data', 'mouse_somatosensory_cortex.h5ad')
-    url = 'https://huggingface.co/datasets/han-shu/st_datasets/resolve/main/mouse_somatosensory_cortex.h5ad'
+    url = f'{dataset_url}/mouse_somatosensory_cortex.h5ad'
 
     adata = sc.read_h5ad(check_file_location(path=path, url=url))
     adata.var_names_make_unique()
@@ -187,10 +203,10 @@ def get_zesta_data(path=None, id=None):
     return adata, cluster_num, 'zebrafish embryogenesis spatiotemporal transcriptomic atlas (ZESTA)'
 
 
-def get_mosta_data(path=None, id=None):
+def get_mosta_data(path=None, time='E9.5', id='E1S1'):
     if (not path):
-        path = os.path.join(home_dir, 'data', 'MOSTA', f'E9.5_{id}.MOSTA.h5ad')
-    url = f'https://ftp.cngb.org/pub/SciRAID/stomics/STDS0000058/stomics/E9.5_{id}.MOSTA.h5ad'
+        path = os.path.join(home_dir, 'data', 'MOSTA', f'{time}_{id}.MOSTA.h5ad')
+    url = f'https://ftp.cngb.org/pub/SciRAID/stomics/STDS0000058/stomics/{time}_{id}.MOSTA.h5ad'
 
     adata = sc.read_h5ad(check_file_location(path=path, url=url))
     adata.var_names_make_unique()

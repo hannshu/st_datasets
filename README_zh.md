@@ -5,98 +5,132 @@
 <details>
 <summary>数据集详细信息</summary>
 <table>
-    <thead>
-        <tr>
-            <th>名称</th>
-            <th>测序技术</th>
-            <th>切片数量</th>
-            <th>spots/细胞 个数</th>
-            <th>基因个数</th>
-            <th>来源</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th>DLPFC dataset</th>
-            <td>10x Genomics Visium</td>
-            <td>12</td>
-            <td>3460 - 4789</td>
-            <td>33538</td>
-            <td>10x visium database</td>
-        </tr>
-        <tr>
-            <th>human breast cancer dataset</th>
-            <td>10x Genomics Visium</td>
-            <td>1</td>
-            <td>3798</td>
-            <td>36601</td>
-            <td>10x visium database</td>
-        </tr>
-        <tr>
-            <th>mouse olfactory bulb dataset</th>
-            <td>ST</td>
-            <td>12</td>
-            <td>231 - 282</td>
-            <td>15284 - 16675</td>
-            <td>stomicsDB</td>
-        </tr>
-        <tr>
-            <th>mouse kidney coronal dataset*</th>
-            <td>10x Genomics Visium</td>
-            <td>1</td>
-            <td>1438</td>
-            <td>31053</td>
-            <td>converted</td>
-        </tr>
-        <tr>
-            <th>mouse brain sagittal dataset</th>
-            <td>10x Genomics Visium</td>
-            <td>4</td>
-            <td>2696 - 3353</td>
-            <td>31053</td>
-            <td>stomicsDB</td>
-        </tr>
-        <tr>
-            <th>mouse somatosensory cortex dataset*</th>
-            <td>osmFISH</td>
-            <td>1</td>
-            <td>5328</td>
-            <td>33</td>
-            <td>converted</td>
-        </tr>
-        <tr>
-            <th>mouse olfactory bulb dataset^</th>
-            <td>Stereo-seq</td>
-            <td>1</td>
-            <td>19109</td>
-            <td>27106</td>
-            <td>https://doi.org/10.1016/j.cell.2022.04.003</td>
-        </tr>
-        <tr>
-            <th>mouse brain cerebellum dataset*</th>
-            <td>Slide-seq</td>
-            <td>1</td>
-            <td>25551</td>
-            <td>20141</td>
-            <td>converted</td>
-        </tr>
-        <tr>
-            <th>Mouse Organogenesis Spatiotemporal Transcriptomic Atlas (E9.5)</th>
-            <td>Stereo-seq</td>
-            <td>5</td>
-            <td>4356 - 5931</td>
-            <td>24238</td>
-            <td>stomicsDB</td>
-        </tr>
-        <tr>
-            <th>Zebrafish Embryogenesis Spatiotemporal Transcriptomic Atlas</th>
-            <td>Stereo-seq</td>
-            <td>1 (with 6 sections)</td>
-            <td>13166</td>
-            <td>26628</td>
-            <td>stomicsDB</td>
-        </tr>
-    </tbody>
+    <tr>
+        <th>名称</th>
+        <th>测序技术</th>
+        <th>是否人工标注</th>
+        <th>切片数量</th>
+        <th>spots/细胞 个数</th>
+        <th>基因个数</th>
+        <th>来源</th>
+    </tr>
+    <tr>
+        <td>DLPFC dataset</td>
+        <td>10x Genomics Visium</td>
+        <td>是</td>
+        <td>12</td>
+        <td>3460 - 4789</td>
+        <td>33538</td>
+        <td>10x visium database</td>
+    </tr>
+    <tr>
+        <td>human breast cancer dataset</td>
+        <td>10x Genomics Visium</td>
+        <td>是</td>
+        <td>1</td>
+        <td>3798</td>
+        <td>36601</td>
+        <td>10x visium database</td>
+    </tr>
+    <tr>
+        <td>mouse brain coronal dataset</td>
+        <td>10x Genomics Visium</td>
+        <td>是</td>
+        <td>1</td>
+        <td>2264 </td>
+        <td>19465</td>
+        <td>stomicsDB</td>
+    </tr>
+    <tr>
+        <td>mouse olfactory bulb dataset</td>
+        <td>ST</td>
+        <td>是</td>
+        <td>12</td>
+        <td>231 - 282</td>
+        <td>15284 - 16675</td>
+        <td>stomicsDB</td>
+    </tr>
+    <tr>
+        <td>mouse olfactory bulb dataset</td>
+        <td>10x Genomics Visium</td>
+        <td>是</td>
+        <td>1</td>
+        <td>918 </td>
+        <td>31053</td>
+        <td>stomicsDB</td>
+    </tr>
+    <tr>
+        <td>mouse olfactory bulb dataset^</td>
+        <td>Stereo-seq</td>
+        <td>否^</td>
+        <td>1</td>
+        <td>19109</td>
+        <td>27106</td>
+        <td>https://doi.org/10.1016/j.cell.2022.04.003</td>
+    </tr>
+    <tr>
+        <td>mouse olfactory bulb dataset (Puck_200127_15)</td>
+        <td>Slide-seq V2</td>
+        <td>否</td>
+        <td>1</td>
+        <td>21724 </td>
+        <td>21220</td>
+        <td>https://singlecell.broadinstitute.org/single_cell/study/SCP815/highly-sensitive-spatial-transcriptomics-at-near-cellular-resolution-with-slide-seqv2#study-download</td>
+    </tr>
+    <tr>
+        <td>mouse kidney coronal dataset*</td>
+        <td>10x Genomics Visium</td>
+        <td>是</td>
+        <td>1</td>
+        <td>1438</td>
+        <td>31053</td>
+        <td>converted</td>
+    </tr>
+    <tr>
+        <td>mouse brain sagittal dataset</td>
+        <td>10x Genomics Visium</td>
+        <td>是</td>
+        <td>4</td>
+        <td>2696 - 3353</td>
+        <td>31053</td>
+        <td>stomicsDB</td>
+    </tr>
+    <tr>
+        <td>mouse somatosensory cortex dataset*</td>
+        <td>osmFISH</td>
+        <td>是</td>
+        <td>1</td>
+        <td>5328</td>
+        <td>33</td>
+        <td>converted</td>
+    </tr>
+    <tr>
+        <td>mouse brain cerebellum dataset*</td>
+        <td>Slide-seq</td>
+        <td>是</td>
+        <td>1</td>
+        <td>25551</td>
+        <td>20141</td>
+        <td>converted</td>
+    </tr>
+    <tr>
+        <td>Mouse Organogenesis Spatiotemporal Transcriptomic Atlas (E9.5)</td>
+        <td>Stereo-seq</td>
+        <td>是</td>
+        <td>5</td>
+        <td>4356 - 5931</td>
+        <td>24238</td>
+        <td>stomicsDB</td>
+    </tr>
+    <tr>
+        <td>Zebrafish Embryogenesis Spatiotemporal Transcriptomic Atlas</td>
+        <td>Stereo-seq</td>
+        <td>是</td>
+        <td>1 (with 6 sections)</td>
+        <td>13166</td>
+        <td>26628</td>
+        <td>stomicsDB</td>
+    </tr>
 </table>
 
 \* 这部分数据集由[**this repository**](https://github.com/acheng416/Benchmark-CTCM-ST.git)数据转化打包为h5ad数据，如果您的实验使用到了上述数据，请考虑引用[**this paper**](https://academic.oup.com/bib/article/doi/10.1093/bib/bbac475/6835380).
@@ -118,6 +152,7 @@ stds.datasets()
 # 读取并使用数据集
 adata, num = stds.get_data(dataset_func=stds.dataset_you_need, **dataset_specific_args)
 ```
+
 `get_data()` 将返回一个 `sc.Anndata` 类型的空间转录组数据以及一个该数据集的聚类类别个数。  
 - `st_datasets`将会在第一次启动时生成一个代理配置文件。如果您不需要使用代理下载数据集，请再次
 运行您的脚本，如果您需要配置代理，请依照指示设置代理。若您无法下载数据集，我们还将数据存放在[**Baidu Netdisk**](https://pan.baidu.com/s/1eMVnLnJvx17Q8NmGgikuZA?pwd=k3k5)上，请在下载完成后将`data`文件夹
@@ -132,8 +167,9 @@ squidpy 也提供了一些数据集 [annotated ST datasets](https://squidpy.read
 ``` python
 import squidpy as sq
 
-adata = sq.dataset.dataset_you_need()
+adata, _ = stds.get_data(sq.dataset.dataset_you_need)
 ```
+
 在第一次使用时将自动下载数据集。
 
 ## 工具
