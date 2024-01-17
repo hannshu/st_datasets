@@ -21,7 +21,7 @@ def get_data(dataset_func=None, top_genes=3000, preprocess=True, **args):
     start_time = time.time()
     assert (dataset_func), '>>> ERROR: You must appoint a function!'
 
-    if (dataset_func in globals().items()):
+    if (dataset_func in globals().values()):
         adata, n_cluster, dataset_details = dataset_func(**args)
     else:
         adata = dataset_func(**args)
