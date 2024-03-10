@@ -6,11 +6,11 @@ from sklearn.neighbors import NearestNeighbors
 import time
 
 
-def build_graph(adata: sc.AnnData, radius=None, knears=None, distance_metrics='l2', use_repo='spatial', matrix=None):
+def build_graph(adata: sc.AnnData | np.ndarray, radius=None, knears=None, distance_metrics='l2', use_repo='spatial'):
     start = time.time()
 
-    if (isinstance(matrix, np.ndarray)):
-        coor = pd.DataFrame(matrix)
+    if (isinstance(adata, np.ndarray)):
+        coor = pd.DataFrame(adata)
     elif ('X' == use_repo):
         coor = pd.DataFrame(adata.X.todense())
     else:
