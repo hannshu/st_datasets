@@ -6,7 +6,7 @@ from sklearn.neighbors import NearestNeighbors
 import time
 
 
-def build_graph(adata: sc.AnnData | np.ndarray, radius=None, knears=None, distance_metrics='l2', use_repo='spatial'):
+def build_graph(adata, radius=None, knears=None, distance_metrics='l2', use_repo='spatial'):
     start = time.time()
 
     if (isinstance(adata, np.ndarray)):
