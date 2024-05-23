@@ -32,7 +32,7 @@ def check_file_location(path, url):
             with tqdm(total=file_size, unit='B', unit_scale=True, unit_divisor=1024, desc='>>> INFO: Download dataset') as bar:
                 for _ in range(file_size):
                     chunk = response.read(1024)
-                    if not chunk:
+                    if (not chunk):
                         break
                     # file.write(chunk)
                     data.append(chunk)
@@ -46,7 +46,6 @@ def check_file_location(path, url):
         except Exception as e:
             # If an exception occurs, delete the partially downloaded file
             print(f">>> ERROR: Download interrupted: {e}")
-            os.remove(path)
             sys.exit()
     else:
         print('>>> INFO: Use local data.')
