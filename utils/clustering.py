@@ -64,7 +64,7 @@ def evaluate_embedding(adata, n_cluster, cluster_method=['mclust'], cluster_scor
 
     if ('gmm' in cluster_method):
         from sklearn.mixture import GaussianMixture
-        adata.obs['gmm'] = GaussianMixture(n_components=adata.obsm['embedding'].shape[1], random_state=0).fit_predict(adata.obsm['embedding']).astype(str)
+        adata.obs['gmm'] = GaussianMixture(n_components=n_cluster, random_state=0).fit_predict(adata.obsm['embedding']).astype(str)
         obs_df = adata.obs.dropna()
         pred_label = LabelEncoder().fit_transform(obs_df['gmm'])
         score['gmm'] = cal_cluster_score(true_label, pred_label, cluster_score_method)

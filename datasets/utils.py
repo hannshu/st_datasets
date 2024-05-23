@@ -2,6 +2,7 @@ import os
 from tqdm import tqdm
 import sys
 import json
+from urllib.request import Request, ProxyHandler, build_opener
  
 
 def check_file_location(path, url):
@@ -11,26 +12,35 @@ def check_file_location(path, url):
         # download and save file to local path
         try:
             if (False == proxy):
-                import requests
-                response = requests.get(url)
+                opener = build_opener()
             else:
-                # use proxy to download dataset
-                from urllib.request import ProxyHandler, build_opener
                 # set proxy server
-                opener = build_opener(ProxyHandler(proxy))
-                response = opener.open(url)
+                handler = ProxyHandler(proxy)
+                opener = build_opener(handler)
 
+            # Request to download the data
+            request = Request(url)
+            response = opener.open(request)
+
+            # build file folder
             os.makedirs(os.path.dirname(path), exist_ok=True)
             file_size = int(response.headers['Content-Length'])
+
             # download file
+            data = []
+            # with open(path, "wb") as file:
+            with tqdm(total=file_size, unit='B', unit_scale=True, unit_divisor=1024, desc='>>> INFO: Download dataset') as bar:
+                for _ in range(file_size):
+                    chunk = response.read(1024)
+                    if not chunk:
+                        break
+                    # file.write(chunk)
+                    data.append(chunk)
+                    bar.update(len(chunk))
+
             with open(path, "wb") as file:
-                with tqdm(total=file_size, unit='B', unit_scale=True, unit_divisor=1024, desc='>>> INFO: Download dataset') as bar:
-                    for _ in range(file_size):
-                        chunk = response.read(1024)
-                        if not chunk:
-                            break
-                        file.write(chunk)
-                        bar.update(len(chunk))
+                file.write(b''.join(data))
+
             # Close the response
             response.close()
         except Exception as e:
@@ -48,8 +58,7 @@ def check_proxy():
     proxy_file_path = os.path.join(os.environ['HOME'], 'st_datasets_proxy_setting.json')
     if (False == os.path.exists(proxy_file_path)):
         generate_proxy_file(proxy_file_path)
-        print(f'>>> ERROR: This is the first time you use st_datasets, please confirm proxy setting at {proxy_file_path}! If you do not need to set the proxy service, please directly rerun your script.')
-        sys.exit()
+        raise FileNotFoundError(f'This is the first time you use st_datasets, please confirm proxy setting at {proxy_file_path}! If you do not need to set the proxy service, please directly rerun your script.')
     else:
         try:
             with open(proxy_file_path, 'r') as file:
