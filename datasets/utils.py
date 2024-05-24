@@ -28,13 +28,11 @@ def check_file_location(path, url):
 
             # download file
             data = []
-            # with open(path, "wb") as file:
             with tqdm(total=file_size, unit='B', unit_scale=True, unit_divisor=1024, desc='>>> INFO: Download dataset') as bar:
                 for _ in range(file_size):
                     chunk = response.read(1024)
                     if (not chunk):
                         break
-                    # file.write(chunk)
                     data.append(chunk)
                     bar.update(len(chunk))
 

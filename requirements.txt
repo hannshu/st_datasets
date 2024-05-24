@@ -7,4 +7,5 @@ scikit-learn
 seaborn
 squidpy
 igraph
+scikit-image
 # rpy2  OPTIONAL (If you need to use mclust clustering, you have to install rpy2) 
