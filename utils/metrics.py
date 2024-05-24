@@ -25,7 +25,7 @@ def get_deconv_metric(label: np.ndarray, pred: np.ndarray, label_name: Optional[
     label = norm(label)
     pred = norm(pred)
 
-    if (None == label_name):
+    if (label_name is None):
         label_name = list(range(label.shape[1]))
     label_wise_js = {
         name: f"{elem:.3f}" 
