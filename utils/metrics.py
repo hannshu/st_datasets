@@ -1,39 +1,69 @@
-from typing import Optional
 import numpy as np
+from sklearn.metrics import (
+    adjusted_rand_score,
+    normalized_mutual_info_score,
+    adjusted_mutual_info_score,
+    v_measure_score,
+    silhouette_score,
+    davies_bouldin_score
+)
+from scipy.stats import pearsonr, spearmanr
+from scipy.spatial.distance import jensenshannon
+from sklearn.metrics import mean_squared_error
+from skimage.metrics import structural_similarity
 
 
-def get_deconv_metric(label: np.ndarray, pred: np.ndarray, label_name: Optional[list] = None) -> None:
+def drop_na(x: np.ndarray) -> np.ndarray:
+    return x[np.isnan(x)]
 
-    from scipy.spatial.distance import jensenshannon
-    from sklearn.metrics import mean_squared_error
-    from skimage.metrics import structural_similarity
 
-    def correlation_coefficient(T1, T2):
-        numerator = np.mean((T1 - T1.mean()) * (T2 - T2.mean()))
-        denominator = T1.std() * T2.std()
-        if denominator == 0:
-            return 0
-        else:
-            result = numerator / denominator
-            return result
-        
-    def norm(x):
-        if (1 < (x.max() - x.min())):
-            return (x - np.min(x)) / (np.max(x) - np.min(x))
-        return x
-        
-    label = norm(label)
-    pred = norm(pred)
+# clustering metrics
+def cal_ARI(label: np.ndarray, pred: np.ndarray) -> float:
+    return adjusted_rand_score(drop_na(label), drop_na(pred))
 
-    if (label_name is None):
-        label_name = list(range(label.shape[1]))
-    label_wise_js = {
-        name: f"{elem:.3f}" 
-        for name, elem in zip(label_name, jensenshannon(label, pred))
-    }
 
-    print(f'>>> PCC(↑): {correlation_coefficient(label, pred):.3f}')
-    print(f'>>> SSIM(↑): {structural_similarity(label, pred, data_range=1):.3f}')
-    print(f'>>> RMSE(↓): {mean_squared_error(label, pred):.3f}')
-    print(f'>>> JS(↓): {label_wise_js}')
-    print(f'>>> JS(mean(↓)): {jensenshannon(label, pred).mean():.3f}')
+def cal_NMI(label: np.ndarray, pred: np.ndarray) -> float:
+    return normalized_mutual_info_score(drop_na(label), drop_na(pred))
+
+
+def cal_AMI(label: np.ndarray, pred: np.ndarray) -> float:
+    return adjusted_mutual_info_score(drop_na(label), drop_na(pred))
+
+
+def cal_v_measure_score(label: np.ndarray, pred: np.ndarray) -> float:
+    return v_measure_score(drop_na(label), drop_na(pred))
+
+
+def cal_SC(embedding: np.ndarray, pred: np.ndarray) -> float:
+    return silhouette_score(embedding[np.isnan(pred)], drop_na(pred))
+
+
+def cal_DB(embedding: np.ndarray, pred: np.ndarray) -> float:
+    return davies_bouldin_score(embedding[np.isnan(pred)], drop_na(pred))
+
+
+def norm(x: np.ndarray) -> np.ndarray:
+    if (1 < (x.max() - x.min())):
+        return (x - np.min(x)) / (np.max(x) - np.min(x))
+    return x
+
+
+# deconvolution metrics
+def cal_PCC(label: np.ndarray, pred: np.ndarray) -> float:
+    return pearsonr(norm(label).flatten(), norm(pred).flatten())[0]
+
+
+def cal_SPCC(label: np.ndarray, pred: np.ndarray) -> float:
+    return spearmanr(norm(label).flatten(), norm(pred).flatten())[0]
+
+
+def cal_SSIM(label: np.ndarray, pred: np.ndarray) -> float:
+    return structural_similarity(norm(label), norm(pred), data_range=1)
+
+
+def cal_RMSE(label: np.ndarray, pred: np.ndarray) -> float:
+    return np.sqrt(mean_squared_error(norm(label), norm(pred)))
+
+
+def cal_JSD(label: np.ndarray, pred: np.ndarray) -> float:
+    return jensenshannon(norm(label), norm(pred)).mean()
