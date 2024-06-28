@@ -13,33 +13,29 @@ from sklearn.metrics import mean_squared_error
 from skimage.metrics import structural_similarity
 
 
-def drop_na(x: np.ndarray) -> np.ndarray:
-    return x[np.isnan(x)]
-
-
 # clustering metrics
 def cal_ARI(label: np.ndarray, pred: np.ndarray) -> float:
-    return adjusted_rand_score(drop_na(label), drop_na(pred))
+    return adjusted_rand_score(label['nan' != label], pred['nan' != label])
 
 
 def cal_NMI(label: np.ndarray, pred: np.ndarray) -> float:
-    return normalized_mutual_info_score(drop_na(label), drop_na(pred))
+    return normalized_mutual_info_score(label['nan' != label], pred['nan' != label])
 
 
 def cal_AMI(label: np.ndarray, pred: np.ndarray) -> float:
-    return adjusted_mutual_info_score(drop_na(label), drop_na(pred))
+    return adjusted_mutual_info_score(label['nan' != label], pred['nan' != label])
 
 
 def cal_v_measure_score(label: np.ndarray, pred: np.ndarray) -> float:
-    return v_measure_score(drop_na(label), drop_na(pred))
+    return v_measure_score(label['nan' != label], pred['nan' != label])
 
 
 def cal_SC(embedding: np.ndarray, pred: np.ndarray) -> float:
-    return silhouette_score(embedding[np.isnan(pred)], drop_na(pred))
+    return silhouette_score(embedding, pred)
 
 
 def cal_DB(embedding: np.ndarray, pred: np.ndarray) -> float:
-    return davies_bouldin_score(embedding[np.isnan(pred)], drop_na(pred))
+    return davies_bouldin_score(embedding, pred)
 
 
 def norm(x: np.ndarray) -> np.ndarray:
