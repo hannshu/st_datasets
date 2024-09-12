@@ -9,3 +9,4 @@ from .utils import plotting as pl
 from .utils import preprocess as pp
 from .utils import clustering as cl
 from .utils import metrics
+from .utils import convert
