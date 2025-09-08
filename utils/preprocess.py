@@ -159,8 +159,11 @@ def get_simulated_data(
         xs[list(range(1, xs.shape[0], 2)), :] += distance / 2
     coors = np.array([xs.reshape(-1), ys.reshape(-1)]).T
 
-    nbrs = NearestNeighbors(radius=distance/2).fit(adata.obsm[used_obsm])
-    neighbors = nbrs.radius_neighbors(coors, return_distance=False)
+    nbrs = NearestNeighbors(n_neighbors=1).fit(coors)
+    neighbor_list = nbrs.kneighbors(adata.obsm[used_obsm], return_distance=False)
+    neighbors = [[] for _ in range(coors.shape[0])]
+    for i, neighbor in enumerate(neighbor_list):
+        neighbors[neighbor[0]].append(i)
     entity_item = np.array([len(item) != 0 for item in neighbors])
     
     neighbors = neighbors[entity_item]
